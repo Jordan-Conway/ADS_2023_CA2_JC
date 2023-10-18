@@ -6,12 +6,12 @@ Tag::Tag(std::string tagName, TagType tagType)
 	this->tagType = tagType;
 }
 
-std::string Tag::getTagName()
+std::string Tag::getTagName() const
 {
 	return this->tagName;
 }
 
-TagType Tag::getTagType()
+TagType Tag::getTagType() const
 {
 	return this->tagType;
 }
@@ -26,7 +26,7 @@ void Tag::setTagType(TagType tagType)
 	this->tagType = tagType;
 }
 
-std::string Tag::toString()
+std::string Tag::toString() const
 {
 	return "{tagName:" + this->tagName + ",tagType:" + this->tagType + "}";
 }
