@@ -2,5 +2,6 @@
 
 enum TagType {
 	OPENING,
-	CLOSING
+	CLOSING,
+	SELFCLOSING
 };
