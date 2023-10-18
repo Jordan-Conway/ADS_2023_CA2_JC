@@ -4,5 +4,5 @@ XMLTagParser::XMLTagParser() {}
 
 std::list<Tag> XMLTagParser::getTagsFromString(std::string string) 
 {
-
+    return {};
 }
