@@ -25,3 +25,8 @@ void Tag::setTagType(TagType tagType)
 {
 	this->tagType = tagType;
 }
+
+std::string Tag::toString()
+{
+	return "{tagName:" + this->tagName + ",tagType:" + this->tagType + "}";
+}

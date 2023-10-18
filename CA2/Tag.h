@@ -14,5 +14,6 @@ public:
 	TagType getTagType();
 	void setTagName(std::string tagName);
 	void setTagType(TagType tagType);
+	std::string toString();
 };
 
