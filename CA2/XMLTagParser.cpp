@@ -2,7 +2,7 @@
 
 XMLTagParser::XMLTagParser() {}
 
-Tag XMLTagParser::getTagFromString(std::string string) 
+std::list<Tag> XMLTagParser::getTagsFromString(std::string string) 
 {
 
 }

@@ -1,10 +1,11 @@
 #pragma once
 #include "Tag.h"
+#include <list>
 
 class XMLTagParser
 {
 public:
 	XMLTagParser();
-	Tag getTagFromString(std::string string);
+	std::list<Tag> getTagsFromString(std::string string);
 };
 
