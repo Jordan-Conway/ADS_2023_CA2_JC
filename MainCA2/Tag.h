@@ -1,7 +1,14 @@
 #pragma once
 
 #include <string>
-#include "TagType.h"
+
+
+enum TagType
+{
+	OPENING,
+	CLOSING,
+	SELFCLOSING
+};
 
 class Tag
 {
@@ -15,5 +22,10 @@ public:
 	void setTagName(std::string tagName);
 	void setTagType(TagType tagType);
 	std::string toString() const;
+	static std::string TagTypeToString(TagType tagType);
+	friend bool operator==(const Tag& t1, const Tag& t2);
+	friend bool operator!=(const Tag& t1, const Tag& t2);
 };
+
+
 

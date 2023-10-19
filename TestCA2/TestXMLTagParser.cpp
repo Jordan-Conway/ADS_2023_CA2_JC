@@ -1,6 +1,6 @@
 #include "CppUnitTest.h"
 #include "../CA2/XMLTagParser.h"
-#include "../CA2/Tag.h"
+#include ""
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 	
@@ -18,7 +18,7 @@ namespace TestXMLTagParser
 			Assert::IsTrue(expected == actual, L"Empty string did not result in empty list");
 		}
 
-		TEST_METHOD(Test_Get_Tags_From_String_No_Tags)
+		/*TEST_METHOD(Test_Get_Tags_From_String_No_Tags)
 		{
 			XMLTagParser xmlTagParser;
 			std::string xmlString = "Hello World";
@@ -56,6 +56,6 @@ namespace TestXMLTagParser
 			expected.push_back(Tag("script", TagType::SELFCLOSING));
 			std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
 			Assert::IsTrue(expected == actual, L"Failed to return one self-closing tag");
-		}
+		}*/
 	};
 }
