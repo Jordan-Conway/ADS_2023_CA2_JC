@@ -18,6 +18,11 @@ std::list<Tag> XMLTagParser::getTagsFromString(std::string string)
             stringWithTag = stringWithTag.substr(1);
             foundTags.push_back(Tag(stringWithTag, TagType::CLOSING));
         }
+        else if (stringWithTag.back() == '/')
+        {
+            stringWithTag = stringWithTag.substr(0, stringWithTag.size() -1);
+            foundTags.push_back(Tag(stringWithTag, TagType::SELFCLOSING));
+        }
         else
         {
             foundTags.push_back(Tag(stringWithTag, TagType::OPENING));
