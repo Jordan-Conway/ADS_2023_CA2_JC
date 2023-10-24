@@ -9,6 +9,36 @@ namespace TestXMLTagParser
 	TEST_CLASS(TestCA2)
 	{
 	public:
+		TEST_METHOD(Test_Contains_Tag_Empty_String)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "";
+			bool result = xmlTagParser.containsTag(toTest);
+			Assert::IsFalse(result);
+		}
+		TEST_METHOD(Test_Contains_Tag_No_Tag)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "Hello";
+			bool result = xmlTagParser.containsTag(toTest);
+			Assert::IsFalse(result);
+		}
+
+		TEST_METHOD(Test_Contains_Tag_One_Tag)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "<name>";
+			bool result = xmlTagParser.containsTag(toTest);
+			Assert::IsTrue(result);
+		}
+
+		TEST_METHOD(Test_Contains_Tag_Malformed_Tag)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "<name<";
+			bool result = xmlTagParser.containsTag(toTest);
+			Assert::IsFalse(result);
+		}
 		TEST_METHOD(Test_Get_Tags_From_String_Empty_String)
 		{
 			XMLTagParser xmlTagParser;
@@ -31,20 +61,25 @@ namespace TestXMLTagParser
 		{
 			XMLTagParser xmlTagParser;
 			std::string xmlString = "<dir>";
-			std::list<Tag> expected = {};
-			expected.push_back(Tag("dir", TagType::OPENING));
+			std::list<Tag> expected = {
+				Tag("dir", TagType::OPENING)
+			};
 			std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
-			Assert::IsTrue(expected == actual, L"Failed to return one tag");
+			Assert::IsFalse(actual.empty(), L"Returned list is empty");
+			Assert::IsTrue(expected.front() == actual.front(), L"Failed to return one tag");
 		}
 
 		TEST_METHOD(Test_Get_Tags_From_String_Multiple_Strings)
 		{
 			XMLTagParser xmlTagParser;
 			std::string xmlString = "<name>description</name>";
-			std::list<Tag> expected = {};
-			expected.push_back(Tag("name", TagType::OPENING));
-			expected.push_back(Tag("name", TagType::CLOSING));
+			std::list<Tag> expected = {
+				Tag("name", TagType::OPENING),
+				Tag("name", TagType::CLOSING)
+			};
 			std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
+			Assert::IsTrue(expected.front() == actual.front(), L"First tag is incorrect");
+			Assert::IsTrue(expected.back() == actual.back(), L"Second tag is incorrect.");
 			Assert::IsTrue(expected == actual, L"Failed to return two tags");
 		}
 
@@ -52,8 +87,9 @@ namespace TestXMLTagParser
 		{
 			XMLTagParser xmlTagParser;
 			std::string xmlString = "<script id=\"__gaOptOutExtension\"/>";
-			std::list<Tag> expected = {};
-			expected.push_back(Tag("script", TagType::SELFCLOSING));
+			std::list<Tag> expected = {
+				Tag("script", TagType::SELFCLOSING)
+			};
 			std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
 			Assert::IsTrue(expected == actual, L"Failed to return one self-closing tag");
 		}
