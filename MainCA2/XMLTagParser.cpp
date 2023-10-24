@@ -55,5 +55,30 @@ bool XMLTagParser::containsTag(std::string string)
 
 bool XMLTagParser::hasAttributes(std::string string)
 {
-    return false;
+    if (!containsTag(string))
+    {
+        return false;
+    }
+    int space = string.find(" ");
+
+    if (space == std::string::npos)
+    {
+        return false;
+    }
+
+    int first = string.find("<");
+    int second = string.find(">");
+    std::string stringWithTag = string.substr(first + 1, second - first - 1);
+    std::string attributes;
+    if (stringWithTag.find('/') == stringWithTag.size() - 1)
+    {
+        attributes = stringWithTag.substr(space, stringWithTag.size() - space - 1);
+    }
+    else
+    {
+        attributes = stringWithTag.substr(space, stringWithTag.size() - space);
+    }
+
+    //Taken from https://stackoverflow.com/a/6444999
+    return attributes.find_first_not_of(' ') != std::string::npos;
 }
