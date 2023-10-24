@@ -64,6 +64,14 @@ namespace TestXMLTagParser
 			Assert::IsFalse(result);
 		}
 
+		TEST_METHOD(Test_Has_Attributes_Valid_Tag_With_Spaces)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "<name >";
+			bool result = xmlTagParser.hasAttributes(toTest);
+			Assert::IsFalse(result);
+		}
+
 		TEST_METHOD(Test_Has_Attributes_Valid_Tag_With_Atrributes)
 		{
 			XMLTagParser xmlTagParser;
@@ -71,6 +79,7 @@ namespace TestXMLTagParser
 			bool result = xmlTagParser.hasAttributes(toTest);
 			Assert::IsTrue(result);
 		}
+
 
 		TEST_METHOD(Test_Get_Tags_From_String_Empty_String)
 		{
