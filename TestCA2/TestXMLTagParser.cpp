@@ -39,6 +39,39 @@ namespace TestXMLTagParser
 			bool result = xmlTagParser.containsTag(toTest);
 			Assert::IsFalse(result);
 		}
+
+		TEST_METHOD(Test_Has_Attributes_Empty_String)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "";
+			bool result = xmlTagParser.hasAttributes(toTest);
+			Assert::IsFalse(result);
+		}
+
+		TEST_METHOD(Test_Has_Attributes_No_Tag)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "Hello World";
+			bool result = xmlTagParser.hasAttributes(toTest);
+			Assert::IsFalse(result);
+		}
+
+		TEST_METHOD(Test_Has_Attributes_Valid_Tag_No_Atrributes)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "<name>";
+			bool result = xmlTagParser.hasAttributes(toTest);
+			Assert::IsFalse(result);
+		}
+
+		TEST_METHOD(Test_Has_Attributes_Valid_Tag_With_Atrributes)
+		{
+			XMLTagParser xmlTagParser;
+			std::string toTest = "<script id=\"__gaOptOutExtension\"/>";
+			bool result = xmlTagParser.hasAttributes(toTest);
+			Assert::Istrue(result);
+		}
+
 		TEST_METHOD(Test_Get_Tags_From_String_Empty_String)
 		{
 			XMLTagParser xmlTagParser;
