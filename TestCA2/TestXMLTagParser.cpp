@@ -69,7 +69,7 @@ namespace TestXMLTagParser
 			XMLTagParser xmlTagParser;
 			std::string toTest = "<script id=\"__gaOptOutExtension\"/>";
 			bool result = xmlTagParser.hasAttributes(toTest);
-			Assert::Istrue(result);
+			Assert::IsTrue(result);
 		}
 
 		TEST_METHOD(Test_Get_Tags_From_String_Empty_String)
