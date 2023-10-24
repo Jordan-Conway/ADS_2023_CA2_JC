@@ -92,5 +92,27 @@ namespace TestXMLTagParser
 			std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
 			Assert::IsTrue(expected.front() == actual.front(), L"Tags do not match");
 		}
+
+		TEST_METHOD(Test_Get_Tags_From_String_Opening_Tag_With_Attributes)
+		{
+			XMLTagParser xmlTagParser;
+			std::string xmlString = "<name for=\"world\">";
+			std::list<Tag> expected = {
+				Tag("name", TagType::OPENING)
+			};
+			std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
+			Assert::IsTrue(expected.front() == actual.front(), L"Tags do not match");
+		}
+
+		TEST_METHOD(Test_Get_Tags_From_String_Selfclosing_Tag_With_Attributes)
+		{
+			XMLTagParser xmlTagParser;
+			std::string xmlString = "<script id=\"__gaOptOutExtension\"/>";
+			std::list<Tag> expected = {
+				Tag("script", TagType::SELFCLOSING)
+			};
+			std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
+			Assert::IsTrue(expected.front() == actual.front(), L"Tags do not match");
+		}
 	};
 }
