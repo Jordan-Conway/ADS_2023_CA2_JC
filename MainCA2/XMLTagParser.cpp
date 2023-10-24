@@ -52,3 +52,8 @@ bool XMLTagParser::containsTag(std::string string)
 
     return true;
 }
+
+bool XMLTagParser::hasAttributes(std::string string)
+{
+    return false;
+}
