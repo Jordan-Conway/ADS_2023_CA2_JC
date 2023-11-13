@@ -105,6 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,6 +132,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Tag.cpp" />
     <ClCompile Include="XMLTagParser.cpp" />
+    <ClCompile Include="XMLValidator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DList.h" />
@@ -141,6 +143,7 @@
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TreeIterator.h" />
     <ClInclude Include="XMLTagParser.h" />
+    <ClInclude Include="XMLValidator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

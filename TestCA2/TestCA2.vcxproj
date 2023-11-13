@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="TestTag.cpp" />
     <ClCompile Include="TestXMLTagParser.cpp" />
+    <ClCompile Include="TestXMLValidator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
