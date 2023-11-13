@@ -34,7 +34,22 @@ std::string Tag::toString() const
 
 bool Tag::closes(Tag& t) const
 {
-	return false;
+	if (this->getTagType() != CLOSING)
+	{
+		return false;
+	}
+
+	if (t.getTagType() != OPENING)
+	{
+		return false;
+	}
+
+	if (this->getTagName() != t.getTagName())
+	{
+		return false;
+	}
+
+	return true;
 }
 
 std::string Tag::TagTypeToString(TagType tagType)
