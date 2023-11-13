@@ -22,6 +22,7 @@ public:
 	void setTagName(std::string tagName);
 	void setTagType(TagType tagType);
 	std::string toString() const;
+	bool closes(Tag& t) const;
 	static std::string TagTypeToString(TagType tagType);
 	friend bool operator==(const Tag& t1, const Tag& t2);
 	friend bool operator!=(const Tag& t1, const Tag& t2);

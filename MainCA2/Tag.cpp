@@ -32,6 +32,11 @@ std::string Tag::toString() const
 	return "{tagName:" + this->tagName + ",tagType:" + TagTypeToString(this->tagType) + "}";
 }
 
+bool Tag::closes(Tag& t) const
+{
+	return false;
+}
+
 std::string Tag::TagTypeToString(TagType tagType)
 {
 	switch (tagType)
