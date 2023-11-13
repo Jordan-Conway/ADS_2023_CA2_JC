@@ -20,11 +20,22 @@ std::list<Tag> XMLTagParser::getTagsFromString(std::string string)
         }
         else if (stringWithTag.back() == '/')
         {
-            stringWithTag = stringWithTag.substr(0, stringWithTag.size() -1);
+            if (hasAttributes(stringWithTag))
+            {
+                stringWithTag = stringWithTag.substr(0, stringWithTag.find(' '));
+            }
+            else
+            {
+                stringWithTag = stringWithTag.substr(0, stringWithTag.size() - 1);
+            }
             foundTags.push_back(Tag(stringWithTag, TagType::SELFCLOSING));
         }
         else
         {
+            if (hasAttributes(stringWithTag))
+            {
+                stringWithTag = stringWithTag.substr(0, stringWithTag.find(' '));
+            }
             foundTags.push_back(Tag(stringWithTag, TagType::OPENING));
         }
         string = string.substr(second+1);
@@ -55,10 +66,6 @@ bool XMLTagParser::containsTag(std::string string)
 
 bool XMLTagParser::hasAttributes(std::string string)
 {
-    if (!containsTag(string))
-    {
-        return false;
-    }
     int space = string.find(" ");
 
     if (space == std::string::npos)

@@ -48,14 +48,6 @@ namespace TestXMLTagParser
 			Assert::IsFalse(result);
 		}
 
-		TEST_METHOD(Test_Has_Attributes_No_Tag)
-		{
-			XMLTagParser xmlTagParser;
-			std::string toTest = "Hello World";
-			bool result = xmlTagParser.hasAttributes(toTest);
-			Assert::IsFalse(result);
-		}
-
 		TEST_METHOD(Test_Has_Attributes_Valid_Tag_No_Atrributes)
 		{
 			XMLTagParser xmlTagParser;
