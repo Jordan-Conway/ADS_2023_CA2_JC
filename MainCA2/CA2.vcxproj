@@ -133,8 +133,13 @@
     <ClCompile Include="XMLTagParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DList.h" />
+    <ClInclude Include="DListIterator.h" />
+    <ClInclude Include="DListNode.h" />
     <ClInclude Include="Tag.h" />
     <ClInclude Include="TagType.h" />
+    <ClInclude Include="Tree.h" />
+    <ClInclude Include="TreeIterator.h" />
     <ClInclude Include="XMLTagParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
