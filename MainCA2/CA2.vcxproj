@@ -133,11 +133,6 @@
     <ClCompile Include="XMLTagParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Trees\Trees\DList.h" />
-    <ClInclude Include="..\..\Trees\Trees\DListIterator.h" />
-    <ClInclude Include="..\..\Trees\Trees\DListNode.h" />
-    <ClInclude Include="..\..\Trees\Trees\Tree.h" />
-    <ClInclude Include="..\..\Trees\Trees\TreeIterator.h" />
     <ClInclude Include="Tag.h" />
     <ClInclude Include="TagType.h" />
     <ClInclude Include="XMLTagParser.h" />
