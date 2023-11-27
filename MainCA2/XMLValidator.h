@@ -11,6 +11,6 @@ private:
     /*TODO*/
     //Add stack here
 public:
-    std::optional<Tree<Tag>> validate(std::ifstream ostream);
+    std::optional<Tree<Tag>> validate(std::ifstream& stream);
 };
 
