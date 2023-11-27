@@ -10,8 +10,8 @@ std::list<Tag> XMLTagParser::getTagsFromString(std::string string)
 
     while (containsTag(string))
     {
-        int first = string.find("<");
-        int second = string.find(">");
+        int first = static_cast<int>(string.find("<"));
+        int second = static_cast<int>(string.find(">"));
         std::string stringWithTag = string.substr(first+1, second - first -1);
         if (stringWithTag.find("/") == 0)
         {
@@ -66,15 +66,15 @@ bool XMLTagParser::containsTag(std::string string)
 
 bool XMLTagParser::hasAttributes(std::string string)
 {
-    int space = string.find(" ");
+    int space = static_cast<int>(string.find(" "));
 
     if (space == std::string::npos)
     {
         return false;
     }
 
-    int first = string.find("<");
-    int second = string.find(">");
+    int first = static_cast<int>(string.find("<"));
+    int second = static_cast<int>(string.find(">"));
     std::string stringWithTag = string.substr(first + 1, second - first - 1);
     std::string attributes;
     if (stringWithTag.find('/') == stringWithTag.size() - 1)
