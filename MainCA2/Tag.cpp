@@ -7,6 +7,12 @@ Tag::Tag(std::string tagName, TagType tagType)
     this->tagType = tagType;
 }
 
+Tag::Tag(const Tag& t)
+{
+    this->tagName = t.getTagName();
+    this->tagType = t.getTagType();
+}
+
 std::string Tag::getTagName() const
 {
     return this->tagName;
@@ -60,6 +66,8 @@ std::string Tag::TagTypeToString(TagType tagType)
         case TagType::CLOSING: return "CLOSING";
         case TagType::SELFCLOSING: return "SELFCLOSING";
     }
+
+    return "";
 }
 
 bool operator==(const Tag& t1, const Tag& t2)

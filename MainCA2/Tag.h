@@ -17,6 +17,7 @@ class Tag
 
 public:
     Tag(std::string tagName, TagType tagType);
+    Tag(const Tag& t);
     std::string getTagName() const;
     TagType getTagType() const;
     void setTagName(std::string tagName);
