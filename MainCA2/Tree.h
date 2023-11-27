@@ -18,9 +18,8 @@ T Tree<T>::getData()
     return data;
 }
 template <class T>
-Tree<T>::Tree(T item)
+Tree<T>::Tree(T item) : data(item)
 {
-
     data = item;
     children = new DList<Tree<T>*>();
     parent = nullptr;
