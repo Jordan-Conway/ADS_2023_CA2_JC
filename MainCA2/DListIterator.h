@@ -11,73 +11,73 @@ template <class T>
 class DListIterator
 {
 public: 
-	DListNode<T> *currentNode;
-	DList<T> *list;
+    DListNode<T> *currentNode;
+    DList<T> *list;
 
-	DListIterator(DList<T> *l = nullptr, DListNode<T> *node = nullptr);
-	void start();
-	void end();
-	void advance();
-	void previous();
-	T item();
-	bool isValid();
-	bool isEnd();
-	bool isStart();
+    DListIterator(DList<T> *l = nullptr, DListNode<T> *node = nullptr);
+    void start();
+    void end();
+    void advance();
+    void previous();
+    T item();
+    bool isValid();
+    bool isEnd();
+    bool isStart();
 };
 
 template <class T>
 DListIterator<T>::DListIterator(DList<T> *l, DListNode<T> *n)
 {
-	list = l;
-	currentNode = n;
+    list = l;
+    currentNode = n;
 }
 
 template <class T>
 void DListIterator<T>::start()
 {
-	currentNode = list->head;
+    currentNode = list->head;
 }
 
 template <class T>
 void DListIterator<T>::end()
 {
-	currentNode = list->tail;
+    currentNode = list->tail;
 }
 template <class T>
 void DListIterator<T>::advance()
 {
-	if (currentNode == nullptr)
-		return;
-	currentNode = currentNode->next;
+    if (currentNode == nullptr)
+        return;
+    currentNode = currentNode->next;
 }
 
 template <class T>
 void DListIterator<T>::previous()
 {
-	if (currentNode == nullptr)
-		return;
-	currentNode = currentNode->previous;
+    if (currentNode == nullptr)
+        return;
+    currentNode = currentNode->previous;
 }
 template <class T>
 T DListIterator<T>::item()
 {
-	return currentNode->data;
+    return currentNode->data;
 }
 
 template <class T>
 bool DListIterator<T>::isValid()
 {
-	return currentNode != nullptr;
+    return currentNode != nullptr;
 }
 
 template <class T>
 bool DListIterator<T>::isEnd()
 {
-	return currentNode == list->tail;
+    return currentNode == list->tail;
 }
 
 template <class T>
 bool DListIterator<T>::isStart()
 {
-	return currentNode == list->head;
+    return currentNode == list->head;
 }
