@@ -31,19 +31,24 @@ std::optional<Tree<Tag>> XMLValidator::validate(std::ifstream& stream)
 
     std::stack<Tag> stack;
 
+    //Add the first tag
     Tree<Tag>* tree = new Tree(tags.front());
     TreeIterator<Tag> iter(tree);
     stack.push(tags.front());
     tags.pop_front();
 
-    while (!tags.empty())
+    //Process the rest of the file
+    while (stream.peek() != std::ifstream::traits_type::eof())
     {
-        switch (tags.front().getTagType())
+        if (!tags.empty())
         {
+            switch (tags.front().getTagType())
+            {
             case OPENING:
             {
                 stack.push(tags.front());
                 iter.appendChild(tags.front());
+                iter.down();
                 tags.pop_front();
                 break;
             }
@@ -64,14 +69,18 @@ std::optional<Tree<Tag>> XMLValidator::validate(std::ifstream& stream)
                 }
                 break;
             }
-                
+
             case SELFCLOSING:
             {
                 iter.appendChild(tags.front());
                 tags.pop_front();
                 break;
             }
+            }
         }
+
+        std::getline(stream, line);
+        tags = tagParser.getTagsFromString(line);
     }
 
     return *tree;
