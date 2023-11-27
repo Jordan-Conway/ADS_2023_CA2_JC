@@ -28,8 +28,9 @@ namespace TestCA2
             std::ifstream file;
             file.open("testOneTag.txt");
             std::optional<Tree<Tag>> tree = validator.validate(file);
-            Tag expectedTag("dir", OPENING);
+            Tag expectedTag("root", OPENING);
             Tree<Tag> expected(expectedTag);
+            Assert::IsTrue(file.good(), L"Error in file");
             Assert::IsTrue(tree.has_value(), L"Tree should have value");
             Assert::IsTrue(tree.value().data == expected.data);
         }

@@ -1,6 +1,7 @@
 #include "CppUnitTest.h"
 #include "XMLTagParser.cpp"
 #include "Tag.cpp"
+#include <fstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
     
