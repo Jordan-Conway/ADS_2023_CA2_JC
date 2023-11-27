@@ -27,5 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="testNoTags.txt" />
+    <Text Include="testOneTag.txt" />
   </ItemGroup>
 </Project>

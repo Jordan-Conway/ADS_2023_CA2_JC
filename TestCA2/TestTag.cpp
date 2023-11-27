@@ -3,7 +3,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace TestTag
+namespace TestCA2
 {
     TEST_CLASS(TestTag)
     {

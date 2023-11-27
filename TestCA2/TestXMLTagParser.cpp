@@ -4,9 +4,9 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
     
-namespace TestXMLTagParser
+namespace TestCA2
 {
-    TEST_CLASS(TestCA2)
+    TEST_CLASS(TestXMLParser)
     {
     public:
         TEST_METHOD(Test_Contains_Tag_Empty_String)
