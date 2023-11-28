@@ -48,6 +48,7 @@ std::optional<Tree<Tag>> XMLValidator::validate(std::ifstream& stream)
             {
                 stack.push(tags.front());
                 iter.appendChild(tags.front());
+                iter.childIter.end();
                 iter.down();
                 tags.pop_front();
                 break;
@@ -58,8 +59,8 @@ std::optional<Tree<Tag>> XMLValidator::validate(std::ifstream& stream)
                 //If tag is now closed
                 if (tags.front().closes(stack.top()))
                 {
-                    stack.pop();
                     iter.up();
+                    stack.pop();
                 }
                 //The document is invalid
                 else
