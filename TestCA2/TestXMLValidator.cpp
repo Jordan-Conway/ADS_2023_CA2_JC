@@ -69,5 +69,16 @@ namespace TestCA2
             DListIterator<Tree<Tag>*> childIter = iter.currentNode->data->children->getIterator();
             Assert::IsTrue(childIter.currentNode->data->data == child21, L"Third layer child is incorrect");
         }
+
+        TEST_METHOD(Test_Validator_Non_Closed_Tag)
+        {
+            XMLValidator validator;
+            std::ifstream file;
+            file.open("testNonClosedTag.txt");
+            Assert::IsTrue(file.good(), L"Error in file");
+            std::optional<Tree<Tag>> tree = validator.validate(file);
+            Assert::IsFalse(tree.has_value(), L"Tree should not have value");
+
+        }
     };
 }
