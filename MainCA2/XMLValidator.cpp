@@ -27,7 +27,7 @@ std::optional<Tree<Tag>> XMLValidator::validate(std::ifstream& stream)
     }
 
     //All XML documents must start with a root node
-    if (tags.front() != Tag("root", OPENING))
+    if (tags.front().getTagName() != "root" || tags.front().getTagType() != OPENING)
     {
         return {};
     }
@@ -102,13 +102,23 @@ std::optional<Tree<Tag>> XMLValidator::validate(std::ifstream& stream)
     nodeTags.insert("dir");
     nodeTags.insert("file");
 
-    std::set<std::string, std::string> propertTags;
-    nodeTags.insert("name");
-    nodeTags.insert("length");
-    nodeTags.insert("config");
-
     while (!tagQueue.empty())
     {
+        if (tagQueue.front().getTagName() == "name")
+        {
+            iter.item().setName(tagQueue.front().getContent());
+        }
+
+        if (tagQueue.front().getTagName() == "length")
+        {
+            iter.item().setLength(tagQueue.front().getContent());
+        }
+
+        if (tagQueue.front().getTagName() == "type")
+        {
+            iter.item().setType(tagQueue.front().getContent());
+        }
+
         if (nodeTags.find(tagQueue.front().getTagName()) != nodeTags.end())
         {
             switch (tagQueue.front().getTagType())

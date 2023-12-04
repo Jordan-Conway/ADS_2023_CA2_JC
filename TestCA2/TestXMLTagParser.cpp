@@ -112,6 +112,7 @@ namespace TestCA2
                 Tag("name", TagType::OPENING),
                 Tag("name", TagType::CLOSING)
             };
+            expected.front().setContent("description");
             std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
             Assert::IsTrue(expected.front() == actual.front(), L"First tag is incorrect");
             Assert::IsTrue(expected.back() == actual.back(), L"Second tag is incorrect.");
@@ -149,5 +150,20 @@ namespace TestCA2
             std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
             Assert::IsTrue(expected.front() == actual.front(), L"Tags do not match");
         }
+
+        TEST_METHOD(Test_Get_Tag_Name)
+        {
+            XMLTagParser xmlTagParser;
+            std::string xmlString = "<name>Name</name>";
+            std::list<Tag> expected = {
+                Tag("name", OPENING),
+                Tag("name", CLOSING)
+            };
+            expected.front().setContent("Name");
+            std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
+            Assert::IsTrue(expected.front() == actual.front(), L"Tags do not match");
+        }
+
+
     };
 }

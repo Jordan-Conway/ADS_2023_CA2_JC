@@ -7,6 +7,11 @@ XMLTagParser::XMLTagParser() {}
 std::list<Tag> XMLTagParser::getTagsFromString(std::string string) 
 {
     std::list<Tag> foundTags;
+    std::list<std::string> propertyTags = {
+        "name",
+        "length",
+        "type"
+    };
 
     while (containsTag(string))
     {
@@ -36,8 +41,18 @@ std::list<Tag> XMLTagParser::getTagsFromString(std::string string)
             {
                 stringWithTag = stringWithTag.substr(0, stringWithTag.find(' '));
             }
-            foundTags.push_back(Tag(stringWithTag, TagType::OPENING));
+            Tag tag(stringWithTag, TagType::OPENING);
+            foundTags.push_back(tag);
         }
+
+        //If the tag contains text
+        if (string[second + 1] != '<')
+        {
+            std::string content = string.substr(second + 1);
+            content = content.substr(0, content.find('<'));
+            foundTags.back().setContent(content);
+        }
+
         string = string.substr(second+1);
     }
 

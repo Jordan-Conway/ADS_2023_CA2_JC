@@ -31,5 +31,14 @@ namespace TestCA2
 
             Assert::IsFalse(t2.closes(t1));
         }
+
+        TEST_METHOD(Test_Setting_Length)
+        {
+            int expected = 5;
+            Tag tag("file", OPENING);
+
+            tag.setLength("5 b");
+            Assert::AreEqual(expected, tag.getLength());
+        }
     };
 }

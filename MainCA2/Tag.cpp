@@ -5,12 +5,18 @@ Tag::Tag(std::string tagName, TagType tagType)
 {
     this->tagName = tagName;
     this->tagType = tagType;
+    this->name = "";
+    this->lengthInBytes = 0;
+    this->type = "";
 }
 
 Tag::Tag(const Tag& t)
 {
     this->tagName = t.getTagName();
     this->tagType = t.getTagType();
+    this->name = t.name;
+    this->lengthInBytes = t.lengthInBytes;
+    this->type = t.type;
 }
 
 std::string Tag::getTagName() const
@@ -58,6 +64,39 @@ bool Tag::closes(Tag& t) const
     return true;
 }
 
+void Tag::setName(std::string name) 
+{
+    this->name = name;
+}
+
+void Tag::setLength(std::string length)
+{
+    length = length.substr(0, length.find(' '));
+    int bytes = std::stoi(length);
+    this->lengthInBytes = bytes;
+}
+
+int Tag::getLength()
+{
+    return this->lengthInBytes;
+}
+
+void Tag::setType(std::string type) 
+{
+    this->type = type;
+}
+
+void Tag::setContent(std::string content) 
+{
+    this->content = content;
+}
+
+std::string Tag::getContent()
+{
+    return this->content;
+}
+
+
 std::string Tag::TagTypeToString(TagType tagType)
 {
     switch (tagType)
@@ -78,6 +117,26 @@ bool operator==(const Tag& t1, const Tag& t2)
     }
 
     if (t1.tagType != t2.tagType) 
+    {
+        return false;
+    }
+
+    if (t1.name != t2.name)
+    {
+        return false;
+    }
+
+    if (t1.lengthInBytes != t2.lengthInBytes)
+    {
+        return false;
+    }
+
+    if (t1.type != t2.type)
+    {
+        return false;
+    }
+
+    if (t1.content != t2.content)
     {
         return false;
     }

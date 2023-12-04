@@ -10,7 +10,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace TestCA2
 {
-    TEST_CLASS(TestXMLValidatorNoTags)
+    TEST_CLASS(TestXMLValidator)
     {
     public:
         TEST_METHOD(Test_Validator_No_Tags)
@@ -32,7 +32,7 @@ namespace TestCA2
             Tag expectedTag("root", OPENING);
             Tree<Tag> expected(expectedTag);
             Assert::IsTrue(tree.has_value(), L"Tree should have value");
-            Assert::IsTrue(tree.value().data == expected.data);
+            Assert::IsTrue(tree.value().data == expected.data, L"Tags do not match");
         }
 
         TEST_METHOD(Test_Validator_Tag_With_Children)

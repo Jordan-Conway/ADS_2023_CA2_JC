@@ -14,6 +14,10 @@ class Tag
 {
     std::string tagName;
     TagType tagType;
+    std::string name;
+    int lengthInBytes;
+    std::string type;
+    std::string content;
 
 public:
     Tag(std::string tagName, TagType tagType);
@@ -24,6 +28,12 @@ public:
     void setTagType(TagType tagType);
     std::string toString() const;
     bool closes(Tag& t) const;
+    void setName(std::string name);
+    void setLength(std::string length);
+    int getLength();
+    void setType(std::string type);
+    void setContent(std::string content);
+    std::string getContent();
     static std::string TagTypeToString(TagType tagType);
     friend bool operator==(const Tag& t1, const Tag& t2);
     friend bool operator!=(const Tag& t1, const Tag& t2);
