@@ -1,4 +1,6 @@
 #pragma once
+#include <stdexcept>
+#include <iostream>
 #include "Tag.h"
 
 Tag::Tag(std::string tagName, TagType tagType)
@@ -17,6 +19,7 @@ Tag::Tag(const Tag& t)
     this->name = t.name;
     this->lengthInBytes = t.lengthInBytes;
     this->type = t.type;
+    this->content = t.content;
 }
 
 std::string Tag::getTagName() const
@@ -69,10 +72,23 @@ void Tag::setName(std::string name)
     this->name = name;
 }
 
+std::string Tag::getName()
+{
+    return this->name;
+}
+
 void Tag::setLength(std::string length)
 {
     length = length.substr(0, length.find(' '));
-    int bytes = std::stoi(length);
+    int bytes = 0;
+    try 
+    {
+        bytes = std::stoi(length);
+    }
+    catch(std::invalid_argument const& ex)
+    {
+        std::cout << ex.what() << " " << length << "\n";
+    }
     this->lengthInBytes = bytes;
 }
 

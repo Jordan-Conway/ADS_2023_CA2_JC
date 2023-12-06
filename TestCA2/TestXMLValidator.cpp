@@ -20,6 +20,7 @@ namespace TestCA2
             file.open("testNoTags.txt");
             std::optional<Tree<Tag>> tree = validator.validate(file);
             Assert::IsFalse(tree.has_value(), L"Tree should not have value");
+            file.close();
         }
 
         TEST_METHOD(Test_Validator_One_Tag)
@@ -33,13 +34,14 @@ namespace TestCA2
             Tree<Tag> expected(expectedTag);
             Assert::IsTrue(tree.has_value(), L"Tree should have value");
             Assert::IsTrue(tree.value().data == expected.data, L"Tags do not match");
+            file.close();
         }
 
         TEST_METHOD(Test_Validator_Tag_With_Children)
         {
             XMLValidator validator;
             std::ifstream file;
-            file.open("testTagWithChildren.txt");
+            file.open("testTagWithChildren.xml");
             Assert::IsTrue(file.good(), L"Error in file");
             std::optional<Tree<Tag>> tree = validator.validate(file);
             Tag parent("root", OPENING);
@@ -47,6 +49,7 @@ namespace TestCA2
             Assert::IsTrue(tree.has_value(), L"Tree should have value");
             Assert::IsTrue(tree.value().data == parent);
             Assert::IsTrue(tree.value().children->getIterator().currentNode->data->data == child);
+            file.close();
         }
 
         TEST_METHOD(Test_Validator_Three_Layers)
@@ -68,6 +71,7 @@ namespace TestCA2
             Assert::IsTrue(iter.currentNode->data->data == child2, L"Second child is incorrect");
             DListIterator<Tree<Tag>*> childIter = iter.currentNode->data->children->getIterator();
             Assert::IsTrue(childIter.currentNode->data->data == child21, L"Third layer child is incorrect");
+            file.close();
         }
 
         TEST_METHOD(Test_Validator_Non_Closed_Tag)
@@ -78,7 +82,21 @@ namespace TestCA2
             Assert::IsTrue(file.good(), L"Error in file");
             std::optional<Tree<Tag>> tree = validator.validate(file);
             Assert::IsFalse(tree.has_value(), L"Tree should not have value");
+            file.close();
 
+        }
+
+        TEST_METHOD(Test_Validator_Get_Name)
+        {
+            XMLValidator validator;
+            std::ifstream file;
+            file.open("testName.txt");
+            Assert::IsTrue(file.good(), L"Error in file");
+            std::optional<Tree<Tag>> tree = validator.validate(file);
+            Assert::IsTrue(tree.has_value(), L"Tree should have value");
+            Tag expected("file", OPENING);
+            expected.setName("TestFile");
+            Assert::IsTrue(tree.value().data == expected, L"Tags do not match");
         }
     };
 }

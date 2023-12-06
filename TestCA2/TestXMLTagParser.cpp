@@ -157,13 +157,22 @@ namespace TestCA2
             std::string xmlString = "<name>Name</name>";
             std::list<Tag> expected = {
                 Tag("name", OPENING),
-                Tag("name", CLOSING)
             };
             expected.front().setContent("Name");
             std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
             Assert::IsTrue(expected.front() == actual.front(), L"Tags do not match");
         }
 
-
+        TEST_METHOD(Test_Get_Tag_Length)
+        {
+            XMLTagParser xmlTagParser;
+            std::string xmlString = "<length>100 b</length>";
+            std::list<Tag> expected = {
+                Tag("length", OPENING),
+            };
+            expected.front().setContent("100 b");
+            std::list<Tag> actual = xmlTagParser.getTagsFromString(xmlString);
+            Assert::IsTrue(expected.front() == actual.front(), L"Tags do not match");
+        }
     };
 }

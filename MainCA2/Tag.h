@@ -29,6 +29,7 @@ public:
     std::string toString() const;
     bool closes(Tag& t) const;
     void setName(std::string name);
+    std::string getName();
     void setLength(std::string length);
     int getLength();
     void setType(std::string type);
