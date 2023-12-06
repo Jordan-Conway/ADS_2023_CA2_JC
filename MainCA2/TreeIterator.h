@@ -24,7 +24,7 @@ public:
     void removeChild();
     bool childValid();
     T childItem();
-    T item();
+    T& item();
 };
 template <class T>
 TreeIterator<T>::TreeIterator(Tree<T>* root)
@@ -175,7 +175,7 @@ T TreeIterator<T>::childItem()
 }
 
 template <class T>
-T TreeIterator<T>::item()
+T& TreeIterator<T>::item()
 {
     return node->data;
 }
