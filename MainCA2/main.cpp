@@ -16,6 +16,7 @@ static string getInput();
 static void displayHelp();
 static void exitProgram();
 static void loadFile();
+static int getItemCount();
 
 chrono::seconds exitDelay(1);
 
@@ -53,6 +54,11 @@ int main() {
             exitProgram();
         }
 
+        if (input == "1")
+        {
+            cout << "There are " << getItemCount() << " items in the current directory" << "\n";
+            continue;
+        }
     }
     
     return 0;
@@ -87,7 +93,7 @@ static void loadFile()
 {
     XMLValidator validator;
     ifstream file(fileName);
-    
+
     if (!file.good())
     {
         cout << "Could not open file" << "\n";
@@ -105,4 +111,9 @@ static void loadFile()
     tree = result.value();
     iter = TreeIterator(&tree.value());
     root = tree.value();
+}
+
+static int getItemCount()
+{
+    return tree.value().count();
 }
