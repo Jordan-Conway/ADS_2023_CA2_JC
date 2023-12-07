@@ -38,6 +38,7 @@ public:
     static std::string TagTypeToString(TagType tagType);
     friend bool operator==(const Tag& t1, const Tag& t2);
     friend bool operator!=(const Tag& t1, const Tag& t2);
+    friend std::ostream& operator<< (std::ostream& stream, const Tag& t);
 };
 
 

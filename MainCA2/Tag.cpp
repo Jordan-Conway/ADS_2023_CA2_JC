@@ -169,3 +169,23 @@ bool operator!=(const Tag& t1, const Tag& t2)
 
     return true;
 }
+
+std::ostream& operator<<(std::ostream& stream, const Tag& t)
+{
+    stream << "{Name: " << t.name;
+    if (t.lengthInBytes != NULL)
+    {
+        stream << ", Size: " << t.lengthInBytes;
+    }
+    if (t.type != "")
+    {
+        stream << ", Type: " << t.type;
+    }
+    if (t.content != "")
+    {
+        stream << ", Content: " << t.content;
+    }
+    stream << "}";
+    return stream;
+}
+
