@@ -15,7 +15,7 @@ class Tag
     std::string tagName;
     TagType tagType;
     std::string name;
-    int lengthInBytes;
+    int lengthInBits;
     std::string type;
     std::string content;
 

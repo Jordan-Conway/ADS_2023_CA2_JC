@@ -8,7 +8,7 @@ Tag::Tag(std::string tagName, TagType tagType)
     this->tagName = tagName;
     this->tagType = tagType;
     this->name = "";
-    this->lengthInBytes = 0;
+    this->lengthInBits = 0;
     this->type = "";
 }
 
@@ -17,7 +17,7 @@ Tag::Tag(const Tag& t)
     this->tagName = t.getTagName();
     this->tagType = t.getTagType();
     this->name = t.name;
-    this->lengthInBytes = t.lengthInBytes;
+    this->lengthInBits = t.lengthInBits;
     this->type = t.type;
     this->content = t.content;
 }
@@ -89,12 +89,12 @@ void Tag::setLength(std::string length)
     {
         std::cout << ex.what() << " " << length << "\n";
     }
-    this->lengthInBytes = bytes;
+    this->lengthInBits = bytes;
 }
 
 int Tag::getLength()
 {
-    return this->lengthInBytes;
+    return this->lengthInBits;
 }
 
 void Tag::setType(std::string type) 
@@ -147,7 +147,7 @@ bool operator==(const Tag& t1, const Tag& t2)
         return false;
     }
 
-    if (t1.lengthInBytes != t2.lengthInBytes)
+    if (t1.lengthInBits != t2.lengthInBits)
     {
         return false;
     }
@@ -178,9 +178,9 @@ bool operator!=(const Tag& t1, const Tag& t2)
 std::ostream& operator<<(std::ostream& stream, const Tag& t)
 {
     stream << "{Name: " << t.name;
-    if (t.lengthInBytes != NULL)
+    if (t.lengthInBits != NULL)
     {
-        stream << ", Size: " << t.lengthInBytes;
+        stream << ", Size: " << t.lengthInBits;
     }
     if (t.type != "")
     {
