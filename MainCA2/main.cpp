@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <optional>
+#include <queue>
 #include <thread>
 #include "XMLValidator.h"
 #include "Tree.h"
@@ -10,13 +11,16 @@
 
 using namespace std;
 
-const string fileName = "vs_sample.xml";
+const string fileName = "vs_sample_simple.xml";
 
 static string getInput();
 static void displayHelp();
 static void exitProgram();
 static void loadFile();
 static int getItemCount();
+static int getMemoryAmount();
+static void move(string target);
+static void list();
 
 chrono::seconds exitDelay(1);
 
@@ -38,7 +42,7 @@ int main() {
             exitProgram();
         }
 
-        cout << "Currently at " << tree.value().getData() << "\n";
+        cout << "Currently at " << iter.value().item().getName() << "\n";
         cout << "Enter a command: ";
         string input = getInput();
         cout << "\n";
@@ -59,6 +63,24 @@ int main() {
             cout << "There are " << getItemCount() << " items in the current directory" << "\n";
             continue;
         }
+
+        if (input == "2")
+        {
+            cout << "The current directory has a size of " << getMemoryAmount() << " bytes" << "\n";
+            continue;
+        }
+
+        if (input.substr(0, input.find(' ')) == "move")
+        {
+            cout << "Moving to " << input.substr(input.find(' ')) << '\n';
+            move(input.substr(input.find(' ') + 1));
+            continue;
+        }
+
+        if (input == "list")
+        {
+            list();
+        }
     }
     
     return 0;
@@ -68,7 +90,7 @@ static string getInput()
 {
     string input = "";
 
-    cin >> input;
+    getline(cin, input);
 
     //Convert input to lower case
     transform(input.begin(), input.end(), input.begin(), ::tolower);
@@ -116,4 +138,85 @@ static void loadFile()
 static int getItemCount()
 {
     return tree.value().count();
+}
+
+static int getMemoryAmount()
+{
+    queue<Tree<Tag>> nodes;
+    int size = 0;
+    
+    nodes.push(tree.value());
+
+    while (!nodes.empty())
+    {
+        size += nodes.front().data.getLength();
+        DListIterator<Tree<Tag>*> childIter = nodes.front().children->getIterator();
+        while (childIter.isValid())
+        {
+            nodes.push(*childIter.currentNode->data);
+            childIter.advance();
+        }
+        nodes.pop();
+    }
+
+    return size;
+}
+
+static int prune()
+{
+
+}
+
+static void move(string target)
+{
+    if (!iter.has_value())
+    {
+        return;
+    }
+
+    if (target == "up")
+    {
+        iter.value().up();
+        return;
+    }
+
+    while (iter.value().childIter.isValid())
+    {
+        string current = iter.value().childIter.item()->data.getName();
+        transform(current.begin(), current.end(), current.begin(), ::tolower);
+        if (current == target)
+        {
+            break;
+        }
+        iter.value().childIter.advance();
+    }
+
+    if (!iter.value().childIter.isValid())
+    {
+        cout << "Directory not found" << "\n";
+        return;
+    }
+
+    if (iter.value().childIter.currentNode->data->getData().getTagName() != "dir")
+    {
+        return;
+    }
+
+    iter.value().down();
+
+}
+
+static void list()
+{
+    if (!iter.has_value())
+    {
+        cout << "No tree loaded" << "\n";
+        return;
+    }
+
+    while (iter.value().childIter.isValid())
+    {
+        cout << iter.value().childIter.currentNode->data->getData() << "\n";
+        iter.value().childIter.advance();
+    }
 }
