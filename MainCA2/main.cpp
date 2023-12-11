@@ -24,6 +24,7 @@ static void list();
 static int prune(Tree<Tag>* treeRoot);
 static string getPath(string fileName);
 static Tree<Tag>* findNode(Tree<Tag>* root, string name);
+static void treeGUI();
 
 chrono::seconds exitDelay(1);
 
@@ -104,6 +105,11 @@ int main() {
                 cout << "Path is " << path << "\n";
             }
             continue;
+        }
+
+        if (input == "gui")
+        {
+            treeGUI();
         }
     }
     
@@ -186,7 +192,6 @@ static int getMemoryAmount()
     return size;
 }
 
-//TODO: This appears to break navigation
 static int prune(Tree<Tag>* treeRoot)
 {
     int count = 0;
@@ -227,8 +232,6 @@ static int prune(Tree<Tag>* treeRoot)
         delete treeRoot;
         count++;
     }
-
-    iter = TreeIterator(&tree.value());
 
     return count;
 }
@@ -298,6 +301,8 @@ static void list()
         cout << "\n";
         iter.value().childIter.advance();
     }
+
+    iter.value().resetIterator();
 }
 
 static string getPath(string fileName)
@@ -343,4 +348,9 @@ static Tree<Tag>* findNode(Tree<Tag>* root, string name)
     }
 
     return nullptr;
+}
+
+static void treeGUI()
+{
+
 }
