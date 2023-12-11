@@ -22,6 +22,8 @@ static int getMemoryAmount();
 static void move(string target);
 static void list();
 static int prune(Tree<Tag>* treeRoot);
+static string getPath(string fileName);
+static Tree<Tag>* findNode(Tree<Tag>* root, string name);
 
 chrono::seconds exitDelay(1);
 
@@ -73,7 +75,6 @@ int main() {
 
         if (input.substr(0, input.find(' ')) == "move")
         {
-            cout << "Moving to " << input.substr(input.find(' ')) << '\n';
             move(input.substr(input.find(' ') + 1));
             continue;
         }
@@ -81,12 +82,28 @@ int main() {
         if (input == "list")
         {
             list();
+            continue;
         }
 
         if (input == "prune")
         {
             int numberDeleted = prune(&tree.value());
             cout << "Deleted " << numberDeleted << " empty directories" << "\n";
+            continue;
+        }
+
+        if (input.substr(0, input.find(' ')) == "find")
+        {
+            string path = getPath(input.substr(input.find(' ') + 1));
+            if (path == "")
+            {
+                cout << "Not found" << "\n";
+            }
+            else
+            {
+                cout << "Path is " << path << "\n";
+            }
+            continue;
         }
     }
     
@@ -169,6 +186,7 @@ static int getMemoryAmount()
     return size;
 }
 
+//TODO: This appears to break navigation
 static int prune(Tree<Tag>* treeRoot)
 {
     int count = 0;
@@ -204,12 +222,14 @@ static int prune(Tree<Tag>* treeRoot)
                 }
                 childIter.advance();
             }
+            childIter.start();
         }
         delete treeRoot;
         count++;
     }
 
     iter = TreeIterator(&tree.value());
+
     return count;
 }
 
@@ -278,4 +298,49 @@ static void list()
         cout << "\n";
         iter.value().childIter.advance();
     }
+}
+
+static string getPath(string fileName)
+{
+    Tree<Tag>* destination = findNode(&tree.value(), fileName);
+    if (destination == nullptr)
+    {
+        return "";
+    }
+    string path = destination->getData().getName();
+
+    while (destination->parent != nullptr)
+    {
+        path = destination->parent->getData().getName() + "/" + path;
+        destination = destination->parent;
+    }
+
+    return path;
+}
+
+static Tree<Tag>* findNode(Tree<Tag>* root, string name)
+{
+    transform(name.begin(), name.end(), name.begin(), ::tolower);
+    string currentName = root->getData().getName();
+    transform(currentName.begin(), currentName.end(), currentName.begin(), ::tolower);
+    //If starts with name provided
+    if (currentName.rfind(name, 0) == 0)
+    {
+        return root;
+    }
+
+    Tree<Tag>* found = nullptr;
+
+    DListIterator<Tree<Tag>*> childIter = root->children->getIterator();
+    while (childIter.isValid())
+    {
+        found = findNode(childIter.item(), name);
+        if (found != nullptr)
+        {
+            return found;
+        }
+        childIter.advance();
+    }
+
+    return nullptr;
 }
