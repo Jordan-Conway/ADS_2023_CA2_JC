@@ -102,6 +102,11 @@ void Tag::setType(std::string type)
     this->type = type;
 }
 
+std::string Tag::getType()
+{
+    return this->type;
+}
+
 void Tag::setContent(std::string content) 
 {
     this->content = content;

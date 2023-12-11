@@ -33,6 +33,7 @@ public:
     void setLength(std::string length);
     int getLength();
     void setType(std::string type);
+    std::string getType();
     void setContent(std::string content);
     std::string getContent();
     static std::string TagTypeToString(TagType tagType);
