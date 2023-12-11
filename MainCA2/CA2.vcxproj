@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Tag.cpp" />
     <ClCompile Include="XMLTagParser.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="DList.h" />
     <ClInclude Include="DListIterator.h" />
     <ClInclude Include="DListNode.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="Tag.h" />
     <ClInclude Include="TagType.h" />
     <ClInclude Include="Tree.h" />
