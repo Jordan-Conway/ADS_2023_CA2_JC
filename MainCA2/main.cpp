@@ -220,6 +220,14 @@ static void move(string target)
         return;
     }
 
+    //Trim whitespace from input
+    size_t first = target.find_first_not_of(' ');
+    if (first != string::npos)
+    {
+        size_t second = target.find_last_not_of(' ');
+        target = target.substr(first, (second - first +1));
+    }
+
     if (target == "up")
     {
         iter.value().up();
@@ -262,7 +270,12 @@ static void list()
 
     while (iter.value().childIter.isValid())
     {
-        cout << iter.value().childIter.currentNode->data->getData() << "\n";
+        cout << iter.value().childIter.currentNode->data->getData().getName();
+        if (iter.value().childIter.currentNode->data->getData().getTagName() == "file")
+        {
+            cout << ": " << iter.value().childIter.currentNode->data->getData().getLength() << " bytes";
+        }
+        cout << "\n";
         iter.value().childIter.advance();
     }
 }
