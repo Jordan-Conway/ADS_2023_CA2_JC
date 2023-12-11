@@ -21,6 +21,7 @@ static int getItemCount();
 static int getMemoryAmount();
 static void move(string target);
 static void list();
+static int prune(Tree<Tag>* treeRoot);
 
 chrono::seconds exitDelay(1);
 
@@ -80,6 +81,12 @@ int main() {
         if (input == "list")
         {
             list();
+        }
+
+        if (input == "prune")
+        {
+            int numberDeleted = prune(&tree.value());
+            cout << "Deleted " << numberDeleted << " empty directories" << "\n";
         }
     }
     
@@ -162,9 +169,48 @@ static int getMemoryAmount()
     return size;
 }
 
-static int prune()
+static int prune(Tree<Tag>* treeRoot)
 {
+    int count = 0;
 
+    TreeIterator<Tag> pruneIter(treeRoot);
+    while (pruneIter.childIter.isValid())
+    {
+        if (pruneIter.childIter.item()->getData().getTagName() == "dir")
+        {
+            int numbDeletedFromChild = prune(pruneIter.childIter.item());
+            if (numbDeletedFromChild > 0)
+            {
+                pruneIter.childIter.start();
+            }
+            count += numbDeletedFromChild;
+        }
+        pruneIter.childIter.advance();
+    }
+
+    pruneIter.childIter.start();
+
+    if (treeRoot->children->size() == 0)
+    {
+        if (treeRoot->parent != nullptr)
+        {
+            DListIterator<Tree<Tag>*> childIter = treeRoot->parent->children->getIterator();
+            while (childIter.isValid())
+            {
+                if (childIter.item() == treeRoot)
+                {
+                    treeRoot->parent->children->remove(childIter);
+                    break;
+                }
+                childIter.advance();
+            }
+        }
+        delete treeRoot;
+        count++;
+    }
+
+    iter = TreeIterator(&tree.value());
+    return count;
 }
 
 static void move(string target)
