@@ -6,12 +6,13 @@
 #include <queue>
 #include <thread>
 #include "XMLValidator.h"
+#include "GUI.h"
 #include "Tree.h"
 #include "Tag.h"
 
 using namespace std;
 
-const string fileName = "vs_sample_simple.xml";
+const string fileName = "vs_sample.xml";
 
 static string getInput();
 static void displayHelp();
@@ -352,5 +353,7 @@ static Tree<Tag>* findNode(Tree<Tag>* root, string name)
 
 static void treeGUI()
 {
-
+    GUI gui;
+    gui.loadTree(iter.value().node);
+    gui.display();
 }
