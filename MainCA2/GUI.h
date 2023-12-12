@@ -8,6 +8,7 @@ class GUI
 {
     sf::RenderWindow* window;
     Tree<Tag>* tree;
+    sf::View* view;
     int drawTree(Tree<Tag>* tree, int indent = 0, int layer = 0);
 public:
     GUI();

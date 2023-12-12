@@ -4,12 +4,15 @@
 GUI::GUI()
 {
     this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Tree");
-    window->setFramerateLimit(24);
+    this->view = new sf::View(sf::FloatRect(sf::Vector2f(0, 0), sf::Vector2f(1280, 720)));
+    window->setView(*this->view);
+    window->setFramerateLimit(60);
     tree = nullptr;
 }
 
 GUI::~GUI()
 {
+    delete this->view;
     delete this->window;
 }
 
@@ -31,8 +34,8 @@ void GUI::display()
                 window->close();
             }
         }
+        this->window->setView(*this->view);
         this->drawTree(this->tree);
-
         window->display();
     }
 }
